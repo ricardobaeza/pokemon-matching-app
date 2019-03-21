@@ -5,8 +5,8 @@ import { environment } from '../environments/environment';
 export const firebaseConfig = environment.firebaseConfig;
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore'
-import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,12 +22,15 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatDialogModule,
+  MatProgressSpinnerModule,
 
 } from '@angular/material';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {RouterModule, Routes} from '@angular/router';
 import { GameSetupComponent } from './game-setup/game-setup.component';
+import { GameMatchingComponent } from './game-matching/game-matching.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'auth-page', component: AuthPageComponent },
@@ -40,7 +43,8 @@ const appRoutes: Routes = [
     AppComponent,
     AuthPageComponent,
     ToolbarComponent,
-    GameSetupComponent
+    GameSetupComponent,
+    GameMatchingComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatCardModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
     RouterModule.forRoot( appRoutes,
           {enableTracing: true})
   ],

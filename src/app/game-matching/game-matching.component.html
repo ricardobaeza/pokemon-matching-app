@@ -1,0 +1,17 @@
+<mat-spinner *ngIf="!isLoaded"></mat-spinner>
+<p>Card 1: <span *ngIf="selectedCards.card1" style="color: green">selected</span></p>
+<p>Card 2: <span *ngIf="selectedCards.card2" style="color: green">selected</span></p>
+<h3>{{result}}</h3>
+<div *ngIf="isLoaded" class="card-container">
+  <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
+    <img src="assets/card.jpg" alt="card" />
+    <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
+  </div>
+</div>
+
+<div *ngIf="isLoaded" class="card-container">
+  <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
+    <img src="assets/card.jpg" alt="card" />
+    <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
+  </div>
+</div>
