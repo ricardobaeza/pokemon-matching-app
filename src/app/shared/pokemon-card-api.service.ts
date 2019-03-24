@@ -13,4 +13,13 @@ export class PokemonCardApiService {
     return this.http.get('https://api.pokemontcg.io/v1/cards');
   }
 
+  getSets(): Observable<any> {
+    return this.http.get('https://api.pokemontcg.io/v1/sets');
+  }
+
+  logger() {
+    this.getSets().subscribe((data)=> {
+      console.log(data);
+    })
+  }
 }

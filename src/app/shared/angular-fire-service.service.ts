@@ -41,7 +41,7 @@ export class AngularFireService {
   }
 
   makeNewUser() {
-    let user = this.afAuth.auth.currentUser;
+    let afUser = this.afAuth.auth.currentUser;
     let foundName: number = 0;
     console.log(this.afAuth.auth.currentUser.displayName);
     for( let user of this.allUserData) {
@@ -53,9 +53,9 @@ export class AngularFireService {
     }
     if (foundName === 0) {
       console.log('user is not present in database, created new user');
-      this.afs.collection('Player-info').add({name: user.displayName,
-                                                    email: user.email,
-                                                    imageUrl: user.photoURL,
+      this.afs.collection('Player-info').add({name: afUser.displayName,
+                                                    email: afUser.email,
+                                                    imageUrl: afUser.photoURL,
                                                     NumberOfGamesWon: 0,
                                                     NumberOfGamesLost: 0,
                                                     BeatenOpponents: [],
