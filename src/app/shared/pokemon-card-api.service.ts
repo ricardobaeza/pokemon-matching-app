@@ -6,20 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PokemonCardApiService {
-
+  cardSets: any;
   constructor(private http: HttpClient) { }
 
   getCards(): Observable<any> {
     return this.http.get('https://api.pokemontcg.io/v1/cards');
   }
 
-  getSets(): Observable<any> {
-    return this.http.get('https://api.pokemontcg.io/v1/sets');
+
+  cardSet() {
+    return this.http.get('https://api.pokemontcg.io/v1/sets')
   }
 
-  logger() {
-    this.getSets().subscribe((data)=> {
-      console.log(data);
-    })
-  }
 }
