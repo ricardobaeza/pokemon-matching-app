@@ -1,3 +1,45 @@
-<p>
-  game-setup works!
-</p>
+<mat-card>
+  <div id='game-setup-container'>
+    <h1>Game Setup</h1>
+    <form [formGroup]='gameForm'
+     (ngSubmit)= "onSubmit()" novalidate>
+      <!-- first form group -->
+      <div formGroupName = "gameData">
+        <mat-form-field>
+          <mat-label>number of players</mat-label>
+            <mat-select formControlName = "numberOfPlayers">
+              <mat-option [value] =1>1</mat-option>
+              <mat-option [value]= 2>2</mat-option>
+              <mat-option [value]= 3>3</mat-option>
+              <mat-option [value]= 4>4</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- second form group -->
+      <div formGroupName = "gameData">
+        <mat-form-field>
+          <mat-label> players</mat-label>
+            <mat-select formControlName = "players" multiple>
+              <mat-option *ngFor="let player of playersArray" [value]="player">
+                {{player.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- third form group -->
+      <div formGroupName = "gameData">
+        <mat-form-field>
+          <mat-label>pick a card set </mat-label>
+            <mat-select formControlName = "cardSet">
+              <mat-option *ngFor="let set of cardSets" [value]= 'set.name'>
+                {{set.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- the submit button  -->
+      <button mat-flat-button color= 'accent' type="submit"
+       [disabled]="gameForm.pristine">next</button>
+    </form>
+  </div>
+</mat-card>
