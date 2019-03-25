@@ -30,7 +30,11 @@ export class GameSetupComponent implements OnInit {
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
+<<<<<<< HEAD
       // @ts-ignore
+=======
+      //@ts-ignore
+>>>>>>> a5f7adc52e6919193818726e048f8cc2849b013c
       this.cardSets = data.sets;
     })
   }

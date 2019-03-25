@@ -74,7 +74,7 @@ const appRoutes: Routes = [
     FormsModule
 
   ],
-  providers: [],
+  providers: [ToolbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
