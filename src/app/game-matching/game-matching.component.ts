@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonCardApiService} from '../shared/pokemon-card-api.service';
+import { AngularFireService } from '../shared/angular-fire-service.service';
 
 @Component({
   selector: 'app-game-matching',
@@ -16,7 +17,8 @@ export class GameMatchingComponent implements OnInit {
   };
   result = 'Select 2 cards...';
 
-  constructor(private pokemonService: PokemonCardApiService) {
+  constructor(private pokemonService: PokemonCardApiService,
+              private afs: AngularFireService) {
   }
 
   ngOnInit() {
@@ -27,6 +29,7 @@ export class GameMatchingComponent implements OnInit {
       }
       this.startGame();
     });
+    console.log(this.afs.localCurrentUser);
   }
 
   startGame() {

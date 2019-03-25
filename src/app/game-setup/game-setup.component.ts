@@ -3,7 +3,8 @@ import {AngularFireService} from '../shared/angular-fire-service.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms'
 import { GameSetupService } from '../shared/game-setup.service';
 import { PokemonCardApiService } from '../shared/pokemon-card-api.service';
-import { GameData } from '../models/gameInfo';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-game-setup',
   templateUrl: './game-setup.component.html',
@@ -18,20 +19,19 @@ export class GameSetupComponent implements OnInit {
   constructor(private afs:  AngularFireService,
               public gameService: GameSetupService,
               public pokemonCardService: PokemonCardApiService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
                 this.gameForm = this.createFormGroup(formBuilder)
                }
 
   ngOnInit() {
-    console.log(this.afs.logCurrentUser());
-    console.log(this.playersArray)
     this.getSet();
-
+    console.log(this.afs.localCurrentUser);
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
+      // @ts-ignore
       this.cardSets = data.sets;
-      console.log(this.cardSets);
     })
   }
 
@@ -50,6 +50,9 @@ export class GameSetupComponent implements OnInit {
       result.gameData = Object.assign({}, result.gameData);
       
       console.log(result);
+      localStorage.setItem('gameData', result);
+      this.router.navigate(['/game'])
+      
   }
 
 }

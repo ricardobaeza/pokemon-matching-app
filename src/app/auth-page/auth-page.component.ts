@@ -18,6 +18,7 @@ export class AuthPageComponent implements OnInit {
 
   ngOnInit() {
     this.afs.getAllUsers();
+    localStorage.clear();
   }
 
   logIn () {
@@ -25,6 +26,7 @@ export class AuthPageComponent implements OnInit {
       this.zone.run(()=> {
         console.log(this.afs.logCurrentUser());
         this.afs.makeNewUser();
+        console.log(this.afs.localCurrentUser);
         this.router.navigate(['/game-setup']);
       })
     })

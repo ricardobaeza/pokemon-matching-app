@@ -10,7 +10,7 @@ import {el} from '@angular/platform-browser/testing/src/browser_util';
 export class AngularFireService {
 
   allUserData: object[] = [];
-
+  localCurrentUser;
   constructor(public afAuth: AngularFireAuth,
               private router: Router,
               private afs: AngularFirestore) { }
@@ -49,6 +49,7 @@ export class AngularFireService {
       if (user.name === this.afAuth.auth.currentUser.displayName) {
         foundName++;
         console.log('user found');
+        this.localCurrentUser = this.afAuth.auth.currentUser
       }
     }
     if (foundName === 0) {

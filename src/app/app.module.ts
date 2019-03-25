@@ -32,12 +32,14 @@ import { GameSetupComponent } from './game-setup/game-setup.component';
 import { GameMatchingComponent } from './game-matching/game-matching.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PlayerStatsComponent } from './player-stats/player-stats.component';
 
 const appRoutes: Routes = [
   { path: 'auth-page', component: AuthPageComponent },
   { path: 'game-setup', component: GameSetupComponent},
   { path: '', component: AuthPageComponent},
-  { path: 'game', component: GameMatchingComponent }
+  { path: 'game', component: GameMatchingComponent },
+  { path: 'stats', component: PlayerStatsComponent}
 ];
 
 @NgModule({
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     AuthPageComponent,
     ToolbarComponent,
     GameSetupComponent,
-    GameMatchingComponent
+    GameMatchingComponent,
+    PlayerStatsComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule.forRoot( appRoutes,
-          {enableTracing: true}),
+          {enableTracing: false}),
     ReactiveFormsModule,
     FormsModule
 
