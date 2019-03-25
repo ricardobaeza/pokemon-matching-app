@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireService} from '../shared/angular-fire-service.service';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { GameSetupService } from '../shared/game-setup.service';
 import { PokemonCardApiService } from '../shared/pokemon-card-api.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class GameSetupComponent implements OnInit {
   gameForm: FormGroup;
-  playersArray = this.afs.allUserData
+  playersArray = this.afs.allUserData;
 
   cardSets;
   
@@ -30,11 +30,7 @@ export class GameSetupComponent implements OnInit {
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
-<<<<<<< HEAD
-      // @ts-ignore
-=======
       //@ts-ignore
->>>>>>> a5f7adc52e6919193818726e048f8cc2849b013c
       this.cardSets = data.sets;
     })
   }
