@@ -4,6 +4,7 @@ import { auth } from 'firebase/app'
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore'
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,8 @@ export class AngularFireService {
 
   constructor(public afAuth: AngularFireAuth,
               private router: Router,
-              private afs: AngularFirestore) { }
+              private afs: AngularFirestore,
+              private toolbar: ToolbarComponent) { }
 
   logIn () {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
@@ -49,6 +51,7 @@ export class AngularFireService {
       if (user.name === this.afAuth.auth.currentUser.displayName) {
         foundName++;
         console.log('user found');
+        this.toolbar.setUser(afUser)
       }
     }
     if (foundName === 0) {

@@ -66,12 +66,12 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule.forRoot( appRoutes,
-          {enableTracing: true}),
+          {enableTracing: false}),
     ReactiveFormsModule,
     FormsModule
 
   ],
-  providers: [],
+  providers: [ToolbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

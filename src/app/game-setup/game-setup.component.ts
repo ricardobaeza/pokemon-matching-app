@@ -30,8 +30,8 @@ export class GameSetupComponent implements OnInit {
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
+      //@ts-ignore
       this.cardSets = data.sets;
-      console.log(this.cardSets);
     })
   }
 
