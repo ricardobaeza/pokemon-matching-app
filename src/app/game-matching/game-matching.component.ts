@@ -9,17 +9,28 @@ import {PokemonCardApiService} from '../shared/pokemon-card-api.service';
 export class GameMatchingComponent implements OnInit {
 
   isLoaded = false;
+  canSelect = true;
   cards: Object[] = [];
-  selectedCards = {
-    card1: null,
-    card2: null,
-  };
+
+  card1: Object = null;
+  card2: Object = null;
+  card1Element = null;
+  card2Element = null;
+
+  players: Object[];
+  activePlayer = 0;
+
   result = 'Select 2 cards...';
 
   constructor(private pokemonService: PokemonCardApiService) {
   }
 
   ngOnInit() {
+    // players = gameData.players
+    this.players = [
+      {name: 'Ricky Baeza', score: 0},
+      {name: 'Berkley Horan', score: 0},
+    ];
     this.pokemonService.getCards().subscribe(data => {
 
       for (let i = 0; i < 5 /* How many cards to get */; i++) {
@@ -34,24 +45,41 @@ export class GameMatchingComponent implements OnInit {
     this.isLoaded = true;
   }
 
+  reset()  {
+    this.card1Element = null;
+    this.card2Element = null;
+    this.card1 = null;
+    this.card2 = null;
+    this.result = "Select 2 cards";
+    this.canSelect = true;
+  }
+
+  rotatePlayer() {
+    if (this.activePlayer >= (this.players.length - 1)) {
+      this.activePlayer = 0;
+    } else {
+      this.activePlayer ++;
+    }
+  }
+
   revealCard(card, cardData: Object) {
     this.animateObject(card, 'spin');
+
+    if (!this.card1) {
+      this.card1 = cardData;
+      card.setAttribute("selected", 1);
+      this.card1Element = card;
+    } else if (!this.card2) {
+      this.card2 = cardData;
+      card.setAttribute("selected", 2);
+      this.card2Element = card;
+    }
 
     // The timeout needs to wait exactly half the length of the css animation!
     setTimeout(() => {
       card.setAttribute('src', cardData['imageUrl']);
+      this.matchCards();
     }, 500);
-
-    if (!this.selectedCards.card1) {
-      this.selectedCards.card1 = cardData;
-      this.selectedCards.card1.element = card;
-      card.selected = 1;
-    } else if (!this.selectedCards.card2) {
-      this.selectedCards.card2 = cardData;
-      this.selectedCards.card2.element = card;
-      card.selected = 2;
-    }
-    this.matchCards();
   }
 
   hideCard(card) {
@@ -62,29 +90,32 @@ export class GameMatchingComponent implements OnInit {
       card.setAttribute('src', 'assets/card.jpg');
     }, 500);
 
-    if (card.selected) {
-      console.log(card.selected);
-      this.selectedCards['card' + card.selected] = null;
+    if (card.getAttribute('selected')) {
+      this['card' + card.getAttribute('selected')] = null;
     }
-    this.matchCards();
   }
 
   matchCards () {
-    if (this.selectedCards.card1 && this.selectedCards.card2) {
-      console.log(this.selectedCards);
-      if (this.selectedCards.card1['id'] === this.selectedCards.card2['id']) {
+    if (this.card1 && this.card2) {
+      this.canSelect = false;
+      if (this.card1['id'] === this.card2['id']) {
         this.result = `It's a match!`;
         setTimeout(() => {
-          let elem = this.selectedCards.card1.element;
+          let elem = this.card1Element;
           elem.parentNode.removeChild(elem);
-          let elem2 = this.selectedCards.card2.element;
-          elem2.parentNode.removeChild(elem);
+          let elem2 = this.card2Element;
+          elem2.parentNode.removeChild(elem2);
+          this.players[this.activePlayer]['score'] += 1;
+          this.rotatePlayer();
+          this.reset();
         }, 1500);
       } else {
         this.result = `Not a match, try again...`;
         setTimeout(() => {
-          this.hideCard(this.selectedCards.card1.element);
-          this.hideCard(this.selectedCards.card2.element);
+          this.hideCard(this.card1Element);
+          this.hideCard(this.card2Element);
+          this.rotatePlayer();
+          this.reset();
         }, 1500);
       }
     }
@@ -105,7 +136,8 @@ export class GameMatchingComponent implements OnInit {
   toggleCard(event, cardData: Object) {
     let card = event.target;
 
-    if (card.classList.contains('card-spin')) {
+    console.log(card.classList.contains('card-spin'));
+    if (card.classList.contains('card-spin') || !this.canSelect) {
       return;
     }
 

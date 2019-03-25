@@ -30,7 +30,7 @@ export class GameSetupComponent implements OnInit {
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
-      this.cardSets = data.sets;
+      this.cardSets = data['sets'];
       console.log(this.cardSets);
     })
   }

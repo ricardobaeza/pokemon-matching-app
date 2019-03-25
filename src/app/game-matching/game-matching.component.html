@@ -1,17 +1,32 @@
 <mat-spinner *ngIf="!isLoaded"></mat-spinner>
-<p>Card 1: <span *ngIf="selectedCards.card1" style="color: green">selected</span></p>
-<p>Card 2: <span *ngIf="selectedCards.card2" style="color: green">selected</span></p>
-<h3>{{result}}</h3>
+
+<mat-card class="score">
+  <div *ngFor="let player of players">
+    <p *ngIf="players[activePlayer] === player" class="active-player">
+      {{player['name']}}: {{player['score']}}
+    </p>
+    <p *ngIf="players[activePlayer] !== player">
+      {{player['name']}}: {{player['score']}}
+    </p>
+  </div>
+</mat-card>
+
+<mat-card>
+  <p>Card 1: <span *ngIf="card1" style="color: green">selected</span></p>
+  <p>Card 2: <span *ngIf="card2" style="color: green">selected</span></p>
+  <h3>{{result}}</h3>
+</mat-card>
+
 <div *ngIf="isLoaded" class="card-container">
   <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
-    <img src="assets/card.jpg" alt="card" />
+    <img src="assets/card.jpg" class="first" alt="card"/>
     <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
   </div>
 </div>
 
 <div *ngIf="isLoaded" class="card-container">
   <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
-    <img src="assets/card.jpg" alt="card" />
+    <img src="assets/card.jpg" class="second" alt="card"/>
     <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
   </div>
 </div>
