@@ -34,7 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PlayerStatsComponent } from './player-stats/player-stats.component';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: 'auth-page', component: AuthPageComponent },
   { path: 'game-setup', component: GameSetupComponent},
   { path: '', component: AuthPageComponent},
