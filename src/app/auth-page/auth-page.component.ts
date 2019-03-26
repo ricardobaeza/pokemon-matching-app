@@ -18,6 +18,7 @@ export class AuthPageComponent implements OnInit {
 
   ngOnInit() {
     this.afs.getAllUsers();
+    localStorage.clear();
   }
 
   logIn () {
