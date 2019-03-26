@@ -1,7 +1,14 @@
 <mat-card> 
   <mat-card-title>Player Stats:</mat-card-title>
-  <!-- <img mat-card-avatar [src]="this.currentUser.photoUrl"> -->
+   <img mat-card-avatar src="{{this.afs.localCurrentUser.user.imageUrl}}" >
   <mat-card-content>
-    
+    <mat-card>
+      <h1>name: {{this.afs.localCurrentUser.user.name}}</h1>
+      <h1>email: {{this.afs.localCurrentUser.user.email}}</h1>
+      <h1>Number of games won: {{this.afs.localCurrentUser.user.NumberOfGamesWon}}</h1>
+      <h1>Number of games lost: {{this.afs.localCurrentUser.user.NumberOfGamesLost}}</h1>
+      <h1>Beaten Opponents: {{this.afs.localCurrentUser.user.BeatenOpponents}}</h1>
+      <h1>Lost to: {{this.afs.localCurrentUser.user.LostTo}}</h1>
+    </mat-card>
   </mat-card-content>
 </mat-card>

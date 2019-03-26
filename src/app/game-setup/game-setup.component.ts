@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
 export class GameSetupComponent implements OnInit {
   gameForm: FormGroup;
   playersArray = this.afs.allUserData;
-
   cardSets;
+  Sm: string = 'small';
+  Lg: string = 'large';
   
   constructor(private afs:  AngularFireService,
               public gameService: GameSetupService,
@@ -26,7 +27,9 @@ export class GameSetupComponent implements OnInit {
 
   ngOnInit() {
     this.getSet();
+    console.log(this.afs.allUserData);
     console.log(this.afs.localCurrentUser);
+
   }
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
@@ -40,7 +43,8 @@ export class GameSetupComponent implements OnInit {
       gameData: formBuilder.group({
         numberOfPlayers: 0,
         players: [],
-        cardSet: ''
+        cardSet: '',
+        gameSize: ''
       })
     })
   }

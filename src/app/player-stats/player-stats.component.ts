@@ -8,6 +8,7 @@ import { AngularFireService } from '../shared/angular-fire-service.service';
   styleUrls: ['./player-stats.component.css']
 })
 export class PlayerStatsComponent implements OnInit {
+  localCurrentUser = this.afs.localCurrentUser;
   constructor(private afs: AngularFireService) { }
 
   ngOnInit() {
