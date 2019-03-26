@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PokemonCardApiService } from '../shared/pokemon-card-api.service';
+import {Component, OnInit} from '@angular/core';
+import {PokemonCardApiService} from '../shared/pokemon-card-api.service';
 
 @Component({
   selector: 'app-game-matching',
@@ -27,22 +27,56 @@ export class GameMatchingComponent implements OnInit {
   }
 
   ngOnInit() {
+    let gameData = JSON.parse(localStorage.getItem('gameData'));
+    gameData = {
+      size: 'small',
+    };
     // players = gameData.players
     this.players = [
-      {name: 'Ricky Baeza', score: 0},
-      {name: 'Berkley Horan', score: 0},
+      {
+        user: {
+          name: 'Ricky Baeza',
+          score: 0
+        },
+        docID: 1234567890
+      },
+      {
+        user: {
+          name: 'Berkley Horan',
+          score: 0
+        },
+        docID: 9876543210,
+      }
     ];
     this.pokemonService.getCards().subscribe(data => {
-
-      for (let i = 0; i < 5 /* How many cards to get */; i++) {
+      let amount = 0;
+      if (gameData['size'] === 'small') {
+        amount = this.players.length * 2;
+      } else if (gameData['size'] === 'large') {
+        amount = this.players.length * 4;
+      }
+      // Small game size = player length * 2
+      // Large game size = player length * 4
+      for (let i = 0; i < amount; i++) {
+        // It's added in twice so that there are pairs
+        this.cards.push(data['cards'][i]);
         this.cards.push(data['cards'][i]);
       }
+
+      this.pairCount = this.cards.length / 2;
+
+      this.cards = this.shuffle(this.cards);
+
+      // This loop ensures that 5 cards appear on a row and are positioned properly
+      for (let i = 0; i < this.cards.length % 5; i++) {
+        this.cards.push({emptyCard: true});
+      }
+
       this.startGame();
     });
   }
 
   startGame() {
-    this.pairCount = this.cards.length;
     console.log(this.cards);
     this.isLoaded = true;
   }
@@ -58,6 +92,22 @@ export class GameMatchingComponent implements OnInit {
       this.result = 'Select 2 cards';
       this.canSelect = true;
     }
+  }
+
+  shuffle (cards: Object[]) {
+    let currentIndex = cards.length;
+    let temp, rand;
+
+    while (0 !== currentIndex) {
+      rand = Math.floor(Math.random() * currentIndex);
+      currentIndex --;
+
+      temp = cards[currentIndex];
+      cards[currentIndex] = cards[rand];
+      cards[rand] = temp;
+    }
+
+    return cards;
   }
 
   rotatePlayer() {
@@ -111,9 +161,9 @@ export class GameMatchingComponent implements OnInit {
           elem.parentNode.removeChild(elem);
           let elem2 = this.card2Element;
           elem2.parentNode.removeChild(elem2);
-          this.players[this.activePlayer]['score'] += 1;
+          this.players[this.activePlayer]['user']['score'] += 1;
           this.rotatePlayer();
-          this.pairCount --;
+          this.pairCount--;
           this.reset();
         }, 1500);
       } else {
@@ -157,7 +207,29 @@ export class GameMatchingComponent implements OnInit {
   }
 
   endGame() {
-    alert('Game Ended!');
+    if (this.players.length > 1) {
+      let winnerIndex = 0;
+      let tie = false;
+      for (let i = 1; i < this.players.length; i++) {
+        if (this.players[i]['user']['score'] > this.players[winnerIndex]['user']['score']) {
+          winnerIndex = i;
+        } else if (this.players[i]['user']['score'] === this.players[winnerIndex]['user']['score']) {
+          // It's a tie
+          tie = true;
+        }
+      }
+
+      if (tie) {
+        alert("It's a tie!");
+      } else {
+        alert(`The winner is ${this.players[winnerIndex]['user']['name']} with a score of ${this.players[winnerIndex]['user']['score']}!`);
+      }
+
+      // Do win/lose counter changes on the user
+    } else {
+      alert("Game ended with a score of " + this.players[0]['user']['score']);
+    }
+
   }
 
 }

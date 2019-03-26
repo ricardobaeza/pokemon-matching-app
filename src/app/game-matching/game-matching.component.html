@@ -2,11 +2,11 @@
 
 <mat-card class="score">
   <div *ngFor="let player of players">
-    <p *ngIf="players[activePlayer] === player" class="active-player">
-      {{player['name']}}: {{player['score']}}
+    <p *ngIf="players[activePlayer] === player" class="player active-player">
+      {{player['user']['name']}}: {{player['user']['score']}}
     </p>
-    <p *ngIf="players[activePlayer] !== player">
-      {{player['name']}}: {{player['score']}}
+    <p *ngIf="players[activePlayer] !== player" class="player">
+      {{player['user']['name']}}: {{player['user']['score']}}
     </p>
   </div>
 </mat-card>
@@ -19,15 +19,12 @@
 </mat-card>
 
 <div *ngIf="isLoaded" class="card-container">
-  <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
-    <img src="assets/card.jpg" class="first" alt="card"/>
-    <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
-  </div>
+  <ng-container *ngFor="let card of cards" >
+    <div *ngIf="!card['emptyCard']" class="card" (click)="toggleCard($event, card)">
+      <img src="assets/card.jpg" alt="card"/>
+    </div>
+    <div *ngIf="card['emptyCard']" class="card" style="cursor: auto;">
+    </div>
+  </ng-container>
 </div>
 
-<div *ngIf="isLoaded" class="card-container">
-  <div *ngFor="let card of cards" class="card" (click)="toggleCard($event, card)">
-    <img src="assets/card.jpg" class="second" alt="card"/>
-    <!--<img src="{{ card['imageUrl'] }}" alt="" />-->
-  </div>
-</div>

@@ -1,9 +1,14 @@
+
 .score {
-  background-color: #9B59B6;
-  font-family: "Helvetica Neue", sans-serif;
-  font-weight: bold;
-  color: #fff;
-  margin: 10px;
+background-color: #9B59B6;
+font-family: "Helvetica Neue", sans-serif;
+font-weight: bold;
+color: #fff;
+margin: 10px;
+}
+
+.player {
+  transition: font-size 200ms;
 }
 
 .score .active-player {
@@ -18,8 +23,7 @@
 }
 
 .card {
-  width: 245px;
-  height: 342px;
+  width: 18%;
 
   cursor: pointer;
 
