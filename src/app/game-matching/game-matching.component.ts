@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {PokemonCardApiService} from '../shared/pokemon-card-api.service';
+import { Component, OnInit } from '@angular/core';
+import { PokemonCardApiService } from '../shared/pokemon-card-api.service';
 
 @Component({
   selector: 'app-game-matching',
@@ -11,6 +11,7 @@ export class GameMatchingComponent implements OnInit {
   isLoaded = false;
   canSelect = true;
   cards: Object[] = [];
+  pairCount: number;
 
   card1: Object = null;
   card2: Object = null;
@@ -34,31 +35,36 @@ export class GameMatchingComponent implements OnInit {
     this.pokemonService.getCards().subscribe(data => {
 
       for (let i = 0; i < 5 /* How many cards to get */; i++) {
-         this.cards.push(data['cards'][i]);
+        this.cards.push(data['cards'][i]);
       }
       this.startGame();
     });
   }
 
   startGame() {
+    this.pairCount = this.cards.length;
     console.log(this.cards);
     this.isLoaded = true;
   }
 
-  reset()  {
+  reset() {
     this.card1Element = null;
     this.card2Element = null;
     this.card1 = null;
     this.card2 = null;
-    this.result = "Select 2 cards";
-    this.canSelect = true;
+    if (this.pairCount === 0) {
+      this.endGame();
+    } else {
+      this.result = 'Select 2 cards';
+      this.canSelect = true;
+    }
   }
 
   rotatePlayer() {
     if (this.activePlayer >= (this.players.length - 1)) {
       this.activePlayer = 0;
     } else {
-      this.activePlayer ++;
+      this.activePlayer++;
     }
   }
 
@@ -67,11 +73,11 @@ export class GameMatchingComponent implements OnInit {
 
     if (!this.card1) {
       this.card1 = cardData;
-      card.setAttribute("selected", 1);
+      card.setAttribute('selected', 1);
       this.card1Element = card;
     } else if (!this.card2) {
       this.card2 = cardData;
-      card.setAttribute("selected", 2);
+      card.setAttribute('selected', 2);
       this.card2Element = card;
     }
 
@@ -95,7 +101,7 @@ export class GameMatchingComponent implements OnInit {
     }
   }
 
-  matchCards () {
+  matchCards() {
     if (this.card1 && this.card2) {
       this.canSelect = false;
       if (this.card1['id'] === this.card2['id']) {
@@ -107,6 +113,7 @@ export class GameMatchingComponent implements OnInit {
           elem2.parentNode.removeChild(elem2);
           this.players[this.activePlayer]['score'] += 1;
           this.rotatePlayer();
+          this.pairCount --;
           this.reset();
         }, 1500);
       } else {
@@ -136,7 +143,6 @@ export class GameMatchingComponent implements OnInit {
   toggleCard(event, cardData: Object) {
     let card = event.target;
 
-    console.log(card.classList.contains('card-spin'));
     if (card.classList.contains('card-spin') || !this.canSelect) {
       return;
     }
@@ -148,6 +154,10 @@ export class GameMatchingComponent implements OnInit {
     } else {
       this.hideCard(card);
     }
+  }
+
+  endGame() {
+    alert('Game Ended!');
   }
 
 }
