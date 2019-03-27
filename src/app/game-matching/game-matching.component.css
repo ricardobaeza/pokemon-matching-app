@@ -1,20 +1,34 @@
+.container{
+  margin-top:.4%;
+}
 .card-container {
+  height:35%;
   display: flex;
-  justify-content: space-evenly;
-
+  justify-content:space-evenly;
   flex-wrap: wrap;
 }
-
+#card{
+  display:flex;
+  align-items:center;
+  flex-flow:column;
+  height:91.75%;
+  background-image: url('../../assets/dittorepeat2.png');
+  background-repeat: repeat;
+  background-size:400px 400px;
+}
+*{
+  font-family: 'Baloo Chettan', cursive;
+}
 .card {
-  width: 245px;
-  height: 342px;
+  width: 150px;
+  height: 225px;
 
   cursor: pointer;
 
   display: inline;
   text-align: center;
 
-  margin: 10px;
+  margin:30px;
 }
 
 .card img {
