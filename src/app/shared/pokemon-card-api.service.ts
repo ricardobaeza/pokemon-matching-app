@@ -9,8 +9,8 @@ export class PokemonCardApiService {
   cardSets: any;
   constructor(private http: HttpClient) { }
 
-  getCards(): Observable<any> {
-    return this.http.get('https://api.pokemontcg.io/v1/cards');
+  getCards(set: string): Observable<any> {
+    return this.http.get('https://api.pokemontcg.io/v1/cards?setCode=' + set);
   }
 
 
