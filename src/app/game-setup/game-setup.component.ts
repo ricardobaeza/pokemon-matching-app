@@ -31,10 +31,10 @@ export class GameSetupComponent implements OnInit {
     console.log(this.afs.localCurrentUser);
 
   }
+
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
-      //@ts-ignore
-      this.cardSets = data.sets;
+      this.cardSets = data['sets'];
     })
   }
 
