@@ -5,7 +5,7 @@
   height: 100%;
   background-image: url("../../assets/HomeBackground.jpg");
   background-size: cover;
-  background-position: 0px -111px;
+  background-position: 0 -111px;
   position: fixed;
 }
 
@@ -19,10 +19,15 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
+  font-family: 'Baloo Chettan', cursive;
+  background-color: #dadfea;
 }
 
 #header-title {
   font-size: 4vw;
 
+}
+
+#login-button {
+  font-family: 'Baloo Chettan', cursive;
 }

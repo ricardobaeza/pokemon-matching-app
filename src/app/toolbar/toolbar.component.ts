@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireService } from '../shared/angular-fire-service.service';
+import {AngularFireService} from '../shared/angular-fire-service.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +7,7 @@ import { AngularFireService } from '../shared/angular-fire-service.service';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
-
-  constructor() { }
-
+  constructor( ) { }
 
   currentuser;
 

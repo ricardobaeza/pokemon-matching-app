@@ -1,0 +1,19 @@
+#main-card {
+  position: absolute;
+  margin: 10vh;
+  width: 80%;
+  right: 5%;
+}
+
+
+#body {
+  background-color: black;
+}
+
+.stats{
+  display: flex;
+}
+
+.stat-right {
+  margin-left: 20%;
+}
