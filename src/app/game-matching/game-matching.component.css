@@ -20,6 +20,7 @@ margin: 10px;
   justify-content: space-evenly;
 
   flex-wrap: wrap;
+  padding: 50px;
 }
 
 .card {
@@ -53,6 +54,21 @@ margin: 10px;
 
 @keyframes spin {
   0% { transform: rotateY(0deg) }
-  50% { transform: rotateY(90deg) }
+  45% { transform: rotateY(90deg) }
+  55% { transform: rotateY(90deg) }
   100% { transform: rotateY(0deg) }
+}
+
+.card-fade {
+  opacity: 0;
+  animation-name: fade;
+  animation-duration: 1500ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes fade {
+  0% { opacity: 1; }
+  75% { opacity: 0 }
+  100% { opacity: 0 }
 }
