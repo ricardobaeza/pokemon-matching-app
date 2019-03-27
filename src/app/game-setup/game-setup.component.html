@@ -31,7 +31,7 @@
         <mat-form-field>
           <mat-label>pick a card set </mat-label>
             <mat-select formControlName = "cardSet">
-              <mat-option *ngFor="let set of cardSets" [value]= 'set.name'>
+              <mat-option *ngFor="let set of cardSets" [value]= 'set.code'>
                 {{set.name}}
               </mat-option>
             </mat-select>

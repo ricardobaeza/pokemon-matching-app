@@ -68,9 +68,7 @@ export class AngularFireService {
     }
   }
 
-  getCurrentUserId():string {
-    return
-  }
+
 
 
 }
