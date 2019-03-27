@@ -1,4 +1,4 @@
-<mat-card>
+<div id="card">
   <div id='game-setup-container'>
     <h1>Game Setup</h1>
     <form [formGroup]='gameForm'
@@ -47,8 +47,10 @@
         </mat-form-field>
       </div>
       <!-- the submit button  -->
-      <button mat-flat-button color= 'accent' type="submit"
-       [disabled]="gameForm.pristine">next</button>
+      <div id="button-container">
+        <button mat-flat-button color= 'accent' type="submit"
+        [disabled]="gameForm.pristine">next</button>
+      </div>
     </form>
   </div>
-</mat-card>
+</div>

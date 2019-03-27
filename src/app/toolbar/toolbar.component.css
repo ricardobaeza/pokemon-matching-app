@@ -1,11 +1,9 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-
 .example-icon {
   padding: 0 14px;
 }
-
 #header {
   width: 100%;
 }
@@ -38,4 +36,10 @@
   background-color:#4a3189;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+}
+*:focus{
+  outline:0;
+}
+.username{
+  padding-left:20px;
 }
