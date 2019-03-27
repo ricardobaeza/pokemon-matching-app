@@ -3,17 +3,19 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app'
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore'
-import {el} from '@angular/platform-browser/testing/src/browser_util';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 @Injectable({
   providedIn: 'root'
 })
 export class AngularFireService {
 
   allUserData: object[] = [];
+  localCurrentUser;
 
   constructor(public afAuth: AngularFireAuth,
               private router: Router,
-              private afs: AngularFirestore) { }
+              private afs: AngularFirestore,
+              private toolbar: ToolbarComponent) { }
 
   logIn () {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
@@ -24,14 +26,14 @@ export class AngularFireService {
     this.afAuth.auth.signOut();
     this.router.navigate(['auth-page']);
 
-
   }
   // this gets all the users in the db
 
   getAllUsers() {
      this.afs.collection('Player-info').get().subscribe(documents => {
        documents.forEach(doc => {
-         this.allUserData.push(doc.data());
+         this.allUserData.push({user: doc.data(), docId: doc.id});
+
        })
      })
 }
@@ -44,11 +46,13 @@ export class AngularFireService {
     let afUser = this.afAuth.auth.currentUser;
     let foundName: number = 0;
     console.log(this.afAuth.auth.currentUser.displayName);
-    for( let user of this.allUserData) {
+    for( let index of this.allUserData) {
       // @ts-ignore
-      if (user.name === this.afAuth.auth.currentUser.displayName) {
+      if (index.user.name === this.afAuth.auth.currentUser.displayName) {
         foundName++;
         console.log('user found');
+        this.localCurrentUser = index;
+        this.toolbar.setUser(afUser)
       }
     }
     if (foundName === 0) {
@@ -59,7 +63,12 @@ export class AngularFireService {
                                                     NumberOfGamesWon: 0,
                                                     NumberOfGamesLost: 0,
                                                     BeatenOpponents: [],
-                                                    LostTo: []});
+                                                    LostTo: [],
+                                                    });
     }
   }
+
+
+
+
 }

@@ -21,7 +21,7 @@
           <mat-label> players</mat-label>
             <mat-select formControlName = "players" multiple>
               <mat-option *ngFor="let player of playersArray" [value]="player">
-                {{player.name}}
+                {{player.user.name}}
               </mat-option>
             </mat-select>
         </mat-form-field>
@@ -31,10 +31,19 @@
         <mat-form-field>
           <mat-label>pick a card set </mat-label>
             <mat-select formControlName = "cardSet">
-              <mat-option *ngFor="let set of cardSets" [value]= 'set.name'>
+              <mat-option *ngFor="let set of cardSets" [value]= 'set.code'>
                 {{set.name}}
               </mat-option>
             </mat-select>
+        </mat-form-field>
+      </div>
+      <div formGroupName="gameData">
+        <mat-form-field>
+          <mat-label>Select Game size</mat-label>
+          <mat-select formControlName="gameSize">
+            <mat-option [value]="Sm">small</mat-option>
+            <mat-option [value]="Lg">large</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
       <!-- the submit button  -->

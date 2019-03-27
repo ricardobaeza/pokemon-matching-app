@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonCardApiService} from '../shared/pokemon-card-api.service';
+import { AngularFireService } from '../shared/angular-fire-service.service';
 
 @Component({
   selector: 'app-game-matching',
@@ -23,36 +24,23 @@ export class GameMatchingComponent implements OnInit {
 
   result = 'Select 2 cards...';
 
-  constructor(private pokemonService: PokemonCardApiService) {
+  constructor(private pokemonService: PokemonCardApiService,
+              private afs: AngularFireService) {
   }
 
   ngOnInit() {
-    let gameData = JSON.parse(localStorage.getItem('gameData'));
-    gameData = {
-      size: 'small',
-    };
-    // players = gameData.players
-    this.players = [
-      {
-        user: {
-          name: 'Ricky Baeza',
-          score: 0
-        },
-        docID: 1234567890
-      },
-      {
-        user: {
-          name: 'Berkley Horan',
-          score: 0
-        },
-        docID: 9876543210,
-      }
-    ];
-    this.pokemonService.getCards().subscribe(data => {
+    let gameData = JSON.parse(localStorage.getItem('gameData'))['gameData'];
+    this.players = gameData.players;
+    for (let i = 0; i < this.players.length; i++) {
+      this.players[i]['user'].score = 0;
+    }
+
+    this.pokemonService.getCards(gameData.cardSet).subscribe(data => {
       let amount = 0;
-      if (gameData['size'] === 'small') {
+      console.log(this.players);
+      if (gameData['gameSize'] === 'small') {
         amount = this.players.length * 2;
-      } else if (gameData['size'] === 'large') {
+      } else if (gameData['gameSize'] === 'large') {
         amount = this.players.length * 4;
       }
       // Small game size = player length * 2
@@ -74,6 +62,7 @@ export class GameMatchingComponent implements OnInit {
 
       this.startGame();
     });
+    console.log(this.afs.localCurrentUser);
   }
 
   startGame() {

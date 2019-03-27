@@ -1,3 +1,7 @@
-<mat-toolbar color="primary" >
-    <h1>Pokemon Matching Card Game</h1>
+<mat-toolbar color="primary" class="toolbar" >
+    <span class="hover"><div class="toolelem"><h1>Game Setup</h1></div></span>
+    <span class="example-spacer"></span>
+    <a [routerLink]="['/stats']">stats page</a>
+    <span class="hover2"><div class="toolelem"><h1><!--{{this.currentuser?.displayName}}-->username</h1></div></span>
 </mat-toolbar>
+

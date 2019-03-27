@@ -9,3 +9,33 @@
 #header {
   width: 100%;
 }
+.hover{
+  height:100%;
+  width:200px;
+}
+.hover2{
+  height:100%;
+}
+.picture{
+  width:50px;
+  height:50px;
+  border-radius: 50%;
+  background-color:red;
+  margin: 0px 20px 0px 120px;
+}
+.toolbar{
+  margin:0;
+  padding:0;
+}
+.toolelem{
+  height:100%;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+}
+.toolelem:hover{
+  background-color:#4a3189;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+}

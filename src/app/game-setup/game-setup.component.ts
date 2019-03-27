@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireService} from '../shared/angular-fire-service.service';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { GameSetupService } from '../shared/game-setup.service';
 import { PokemonCardApiService } from '../shared/pokemon-card-api.service';
-import { GameData } from '../models/gameInfo';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-game-setup',
   templateUrl: './game-setup.component.html',
@@ -11,27 +12,29 @@ import { GameData } from '../models/gameInfo';
 })
 export class GameSetupComponent implements OnInit {
   gameForm: FormGroup;
-  playersArray = this.afs.allUserData
-
+  playersArray = this.afs.allUserData;
   cardSets;
+  Sm: string = 'small';
+  Lg: string = 'large';
   
   constructor(private afs:  AngularFireService,
               public gameService: GameSetupService,
               public pokemonCardService: PokemonCardApiService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
                 this.gameForm = this.createFormGroup(formBuilder)
                }
 
   ngOnInit() {
-    console.log(this.afs.logCurrentUser());
-    console.log(this.playersArray)
     this.getSet();
+    console.log(this.afs.allUserData);
+    console.log(this.afs.localCurrentUser);
 
   }
+
   getSet() {
     this.pokemonCardService.cardSet().subscribe((data)=> {
       this.cardSets = data['sets'];
-      console.log(this.cardSets);
     })
   }
 
@@ -40,7 +43,8 @@ export class GameSetupComponent implements OnInit {
       gameData: formBuilder.group({
         numberOfPlayers: 0,
         players: [],
-        cardSet: ''
+        cardSet: '',
+        gameSize: ''
       })
     })
   }
@@ -49,7 +53,10 @@ export class GameSetupComponent implements OnInit {
     const result = Object.assign({}, this.gameForm.value);
       result.gameData = Object.assign({}, result.gameData);
       
-      console.log(result);
+      console.log(JSON.stringify(result));
+      localStorage.setItem('gameData', JSON.stringify(result));
+      this.router.navigate(['/game'])
+      
   }
 
 }
