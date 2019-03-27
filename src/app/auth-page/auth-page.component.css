@@ -1,5 +1,3 @@
-
-
 #home-body {
   width: 100%;
   height: 100%;
@@ -20,7 +18,8 @@
   flex-direction: column;
   justify-content: center;
   font-family: 'Baloo Chettan', cursive;
-  background-color: #dadfea;
+  /* background-color: #dadfea; */
+  background-color:white;
 }
 
 #header-title {
