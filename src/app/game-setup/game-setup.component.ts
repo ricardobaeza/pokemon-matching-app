@@ -53,8 +53,8 @@ export class GameSetupComponent implements OnInit {
     const result = Object.assign({}, this.gameForm.value);
       result.gameData = Object.assign({}, result.gameData);
       
-      console.log(result);
-      localStorage.setItem('gameData', result);
+      console.log(JSON.stringify(result));
+      localStorage.setItem('gameData', JSON.stringify(result));
       this.router.navigate(['/game'])
       
   }

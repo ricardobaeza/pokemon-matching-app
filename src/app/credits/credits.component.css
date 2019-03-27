@@ -1,10 +1,19 @@
 *{
     font-family: 'Baloo Chettan', cursive;
 }
+h4{
+    transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+}
+h4:hover{
+    cursor:pointer;
+    color:#4a3189;
+    transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+}
 #card{
     display:flex;
     justify-content: center;
     align-items:center;
+    flex-flow:column;
     height:91.75%;
     background-image: url('../../assets/dittorepeat2.png');
     background-repeat: repeat;

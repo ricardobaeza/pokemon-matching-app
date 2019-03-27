@@ -33,13 +33,15 @@ import { GameMatchingComponent } from './game-matching/game-matching.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PlayerStatsComponent } from './player-stats/player-stats.component';
+import { CreditsComponent } from './credits/credits.component';
 
 export const appRoutes: Routes = [
   { path: 'auth-page', component: AuthPageComponent },
   { path: 'game-setup', component: GameSetupComponent},
   { path: '', component: AuthPageComponent},
   { path: 'game', component: GameMatchingComponent },
-  { path: 'stats', component: PlayerStatsComponent}
+  { path: 'stats', component: PlayerStatsComponent},
+  { path: 'credits', component: CreditsComponent}
 ];
 
 @NgModule({
@@ -49,7 +51,8 @@ export const appRoutes: Routes = [
     ToolbarComponent,
     GameSetupComponent,
     GameMatchingComponent,
-    PlayerStatsComponent
+    PlayerStatsComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
