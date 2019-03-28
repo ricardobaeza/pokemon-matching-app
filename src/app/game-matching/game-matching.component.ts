@@ -114,6 +114,7 @@ export class GameMatchingComponent implements OnInit {
       this.card1 = cardData;
       card.setAttribute('selected', 1);
       this.card1Element = card;
+      this.result = "Select 1 more card...";
     } else if (!this.card2) {
       this.card2 = cardData;
       card.setAttribute('selected', 2);
@@ -128,15 +129,17 @@ export class GameMatchingComponent implements OnInit {
   }
 
   hideCard(card) {
-    this.animateObject(card, 'spin');
+    if (this.canSelect) {
+      this.animateObject(card, 'spin');
 
-    // The timeout needs to wait exactly half the length of the css animation!
-    setTimeout(() => {
-      card.setAttribute('src', 'assets/card.jpg');
-    }, 500);
+      // The timeout needs to wait exactly half the length of the css animation!
+      setTimeout(() => {
+        card.setAttribute('src', 'assets/card.jpg');
+      }, 500);
 
-    if (card.getAttribute('selected')) {
-      this['card' + card.getAttribute('selected')] = null;
+      if (card.getAttribute('selected')) {
+        this['card' + card.getAttribute('selected')] = null;
+      }
     }
   }
 
@@ -145,10 +148,12 @@ export class GameMatchingComponent implements OnInit {
       this.canSelect = false;
       if (this.card1['id'] === this.card2['id']) {
         this.result = `It's a match!`;
+        let elem = this.card1Element;
+        let elem2 = this.card2Element;
+        this.animateObject(elem, 'fade');
+        this.animateObject(elem2, 'fade');
         setTimeout(() => {
-          let elem = this.card1Element;
           elem.parentNode.removeChild(elem);
-          let elem2 = this.card2Element;
           elem2.parentNode.removeChild(elem2);
           this.players[this.activePlayer]['user']['score'] += 1;
           this.rotatePlayer();
@@ -158,10 +163,11 @@ export class GameMatchingComponent implements OnInit {
       } else {
         this.result = `Not a match, try again...`;
         setTimeout(() => {
+          this.canSelect = true;
           this.hideCard(this.card1Element);
           this.hideCard(this.card2Element);
-          this.rotatePlayer();
           this.reset();
+          this.rotatePlayer();
         }, 1500);
       }
     }
@@ -174,6 +180,10 @@ export class GameMatchingComponent implements OnInit {
       setTimeout(() => {
         object.classList.remove('card-spin');
       }, 1000);
+    } else if (animation === 'fade') {
+      setTimeout(() => {
+        object.classList.add('card-fade');
+      }, 500);
     } else {
       throw 'No animation provided!';
     }
